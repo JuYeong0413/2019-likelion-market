@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <h2 class="h-text top-margin-20 bottom-margin-20">주문내역</h2>
+    <div class="row">
+    {% for order in orders %}
+    <div class="card list-margin" style="width: 20rem;">
+        <div class="card-header">주문번호 # {{ order.id }}</div>
+        <div class="card-body">
+            <footer class="blockquote-footer bottom-margin-10">
+                {{ order.created_at }}
+            </footer>
+            {% for item in order.items.all %}
+            <p class="card-text"><b><a href="{% url 'items:show' item.pk %}">{{ item.name }}</a> &nbsp; {{ item.price }}</b>원</p>
+            {% endfor %}
+            <hr class="hr-style"><br>
+            총 <b>{{ order.total_price }}</b>원
+        </div>
+        {% if order.review_written %}
+        {% else %}
+        <div class="card-footer">
+            <form action="{% url 'items:write_review' %}" method="POST">
+                {% csrf_token %}
+                <input type="hidden" name="order_id" value="{{ order.id }}">
+                <input type="submit" class="btn btn-light" value="구매후기 작성하기">
+            </form>
+        </div>
+        {% endif %}
+    </div>
+    {% endfor %}
+    </div><br><br>
+    
+    <button type="button" onclick="topFunction()" class="scrollBtn" id="myBtn">Top</button><br><br>
+{% endblock %}

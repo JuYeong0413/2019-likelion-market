@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <h2 class="h-text top-margin-20 bottom-margin-20">구매후기</h2>
+    <div class="row">
+    {% for review in reviews %}
+    <div class="card list-margin" style="width: 20rem;">
+        <div class="card-header">
+            {{ review.user }}님의 후기
+        </div>
+        <div class="card-body">
+            {% for item in review.order.items.all %}
+            <a href="{% url 'items:show' item.pk %}"><h5 class="card-title">{{ item.name }}</h5></a>
+            {% endfor %}
+            <hr class="hr-style">
+            <p class="card-text">{{ review.content|linebreaks }}</p>
+            <footer class="blockquote-footer">
+                {% with ''|center:review.star as range %}
+                    {% for star in range %} ★ {% endfor %}
+                {% endwith %}
+            </footer>
+            <span class="card-body"><small>{{ review.created_at }}</small></span>
+        </div>
+    </div>
+    {% endfor %}
+    </div><br><br>
+    
+    <button type="button" onclick="topFunction()" class="scrollBtn" id="myBtn">Top</button><br><br>
+{% endblock %}

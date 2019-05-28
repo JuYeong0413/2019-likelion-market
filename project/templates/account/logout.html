@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block content %}
+<body class="vsc-initialized h-text">
+    <div class="top-margin-20">
+        <h1 class="h-text">로그아웃</h1>
+        
+        <h3 class="h-text bottom-margin-20">정말로 로그아웃 하시겠습니까?</h3>
+        
+        <form method="post" action="/accounts/logout/">
+            <input type="hidden" name="csrfmiddlewaretoken" value="CoyvLq4bXuXOFCnfamdvaEcBG2blGEw91EuHmU0QYVoSM6M6pD9QGAJlcaG3KW4i">
+            <button type="submit" class="btn btn-primary form-text">로그아웃</button>
+            {% csrf_token %}
+        </form>
+    </div>
+</body>
+{% endblock %}

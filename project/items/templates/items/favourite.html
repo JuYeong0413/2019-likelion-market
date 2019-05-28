@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <h2 class="h-text top-margin-20 bottom-margin-20">관심상품 목록</h2>
+    <div class="row">
+    {% for item in items %}
+    <div class="card list-margin" style="width: 20rem;">
+        <a href="{% url 'items:show' item.pk %}"><img src="{{ item.image.url }}" class="card-img-top item-img" alt=""></a>
+        <div class="card-body">
+            <a href="{% url 'items:show' item.pk %}"><h5 class="card-title">{{ item.name }}</h5></a>
+            <p class="card-text"><b>{{ item.price }}</b>원</p>
+            <hr class="hr-style"><br>
+            
+            <div class="column">
+                <div class="row">
+                &nbsp; &nbsp;
+                <form action="{% url 'items:cart_success'%}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="item_id" value="{{ item.pk }}">
+                    <input type="submit" class="card-link btn btn-primary" value="장바구니에 담기">
+                </form> &nbsp; &nbsp;
+                <form action="{% url 'items:single_order' %}" method="POST">
+                    {% csrf_token %}
+                    <input type="hidden" name="item_id" value="{{ item.pk }}">
+                    <input type="submit" class="btn btn-primary" value="구매하기">
+                </form><br> &nbsp; &nbsp; &nbsp;
+                <form action="{% url 'items:unlike' item.id %}" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" class="btn btn-primary" style="margin-left: 14px;" value="관심상품 해제">
+                </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+    </div><br><br>
+    
+    <button type="button" onclick="topFunction()" class="scrollBtn" id="myBtn">Top</button><br><br>
+{% endblock %}

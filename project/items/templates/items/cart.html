@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <h2 class="h-text top-margin-20 bottom-margin-20">장바구니</h2>
+    {% if items %}
+    <div class="bottom-margin-20">
+    <button class="btn btn-primary" onclick="check_all()">전체 선택</button> &nbsp; &nbsp;
+    <button class="btn btn-primary" onclick="uncheck_all()">전체 선택해제</button>
+    </div>
+    <form method="POST">
+        <div>
+            {% csrf_token %}
+            <input type="submit" class="btn btn-primary" formaction="{% url 'items:order' %}" value="선택한 상품 모두 구매하기"> &nbsp; &nbsp;
+            <input type="submit" class="btn btn-primary" formaction="{% url 'items:cart_delete' %}" value="선택한 상품 모두 장바구니에서 삭제하기">
+            <br><br>
+        </div>
+    
+        <table class="table table-bordered review-text">
+            <thead>
+                <tr>
+                    <th width="10%" scope="col">선택</th>
+                    <th colspan="2" scope="col">상품</th>
+                    <th scope="col">가격</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for item in items %}
+            <tr>
+                <td style="vertical-align: middle;">
+                    <div class="custom-control custom-checkbox" onclick="check();">
+                        <input type="checkbox" class="custom-control-input" id="{{ item.pk }}" value="{{ item.pk }}" name="item">
+                        <label class="custom-control-label" for="{{ item.pk }}"></label>
+                    </div>
+                </td>
+                <td style="vertical-align: middle;"><a href="{% url 'items:show' item.pk %}"><img src="{{ item.image.url }}" alt="" width="100"></a></td>
+                <td style="vertical-align: middle;"><a href="{% url 'items:show' item.pk %}">{{ item.name }}</a></td>
+                <td style="vertical-align: middle;">{{ item.price }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </form>
+    {% endif %}
+    <br><br>
+    
+    <button type="button" onclick="topFunction()" class="scrollBtn" id="myBtn">Top</button><br><br>
+    
+    <script type="text/javascript">
+    function check() {
+        if(document.getElementById("{{ item.pk }}").checked == true) {
+            document.getElementById("{{ item.pk }}").checked = false;
+        }
+        else document.getElementById("{{ item.pk }}").checked = true;
+    }
+    
+    function check_all() {
+        var checkboxes = document.getElementsByName("item")
+        for(var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = true;
+        }
+    }
+    
+    function uncheck_all() {
+        var checkboxes = document.getElementsByName("item")
+        for(var i = 0; i < checkboxes.length; i++) {
+            checkboxes[i].checked = false;
+        }
+    }
+    </script>
+{% endblock %}

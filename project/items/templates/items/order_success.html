@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <h2 class="h-text top-margin-20">주문 완료</h2>
+    <h5 class="h-text">빠르게 배송해드리겠습니다.</h5>
+    <a href="{% url 'items:buylist' %}" class="btn btn-primary bottom-margin-20">주문내역 확인하기</a>
+    
+    <div class="card" style="width: 20rem;">
+        <div class="card-header">주문번호 # {{ order.id }}</div>
+        <div class="card-body">
+            <footer class="blockquote-footer bottom-margin-10">
+                {{ order.created_at }}
+            </footer>
+            {% for item in order.items.all %}
+            <a href="{% url 'items:show' item.pk %}"><h5 class="card-title">{{ item.name }}</h5></a>
+            <p class="card-text"><b>{{ item.price }}</b>원</p>
+            {% endfor %}
+            <hr class="hr-style"><br>
+            총 금액 : <b>{{ order.total_price }}</b>원
+        </div>
+    </div><br><br>
+    
+    <button type="button" onclick="topFunction()" class="scrollBtn" id="myBtn">Top</button><br><br>
+{% endblock %}

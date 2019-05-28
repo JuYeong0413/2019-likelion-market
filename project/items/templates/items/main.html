@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+
+{% block content %}
+    <h2 class="h-text top-margin-20">상품 전체 목록</h2>
+    <h5 class="h-text bottom-margin-20">* 상품 사진 또는 이름을 클릭하면 상세보기 페이지로 이동됩니다.</h5>
+    <div class="row">
+    {% for item in items %}
+    <div class="card list-margin" style="width: 20rem;">
+        <a href="{% url 'items:show' item.pk %}"><img src="{{ item.image.url }}" class="card-img-top item-img" alt=""></a>
+        <div class="card-body">
+            <a href="{% url 'items:show' item.pk %}"><h5 class="card-title">{{ item.name }}</h5></a>
+            <p class="card-text"><b>{{ item.price }}</b>원</p>
+            <footer class="blockquote-footer">
+                {{ item.bought }}개 구매
+            </footer>
+        </div>
+    </div>
+    {% endfor %}
+    </div><br><br>
+    
+    <button type="button" onclick="topFunction()" class="scrollBtn" id="myBtn">Top</button><br><br>
+{% endblock %}
