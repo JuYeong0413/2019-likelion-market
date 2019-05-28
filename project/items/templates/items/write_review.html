@@ -20,15 +20,15 @@
                         <td><b>{% for item in order.items.all %} {{ item.name }}<br> {% endfor %}</b></td>
                     </tr>
                     <tr>
-                      <th scope="row">별점</th>
+                      <th scope="row">별점<br>(1~5점)</th>
                       <td>
                         <div class="form-group review-text">
                             <select class="form-control" name="star">
-                                <option value="1">1점</option>
-                                <option value="2">2점</option>
-                                <option value="3">3점</option>
-                                <option value="4">4점</option>
-                                <option value="5">5점</option>
+                                <option value="1">★☆☆☆☆</option>
+                                <option value="2">★★☆☆☆</option>
+                                <option value="3">★★★☆☆</option>
+                                <option value="4">★★★★☆</option>
+                                <option value="5">★★★★★</option>
                             </select>
                         </div>
                       </td>

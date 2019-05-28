@@ -28,7 +28,7 @@
             {% for item in items %}
             <tr>
                 <td style="vertical-align: middle;">
-                    <div class="custom-control custom-checkbox" onclick="check();">
+                    <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="{{ item.pk }}" value="{{ item.pk }}" name="item">
                         <label class="custom-control-label" for="{{ item.pk }}"></label>
                     </div>
@@ -46,23 +46,16 @@
     
     <button type="button" onclick="topFunction()" class="scrollBtn" id="myBtn">Top</button><br><br>
     
-    <script type="text/javascript">
-    function check() {
-        if(document.getElementById("{{ item.pk }}").checked == true) {
-            document.getElementById("{{ item.pk }}").checked = false;
-        }
-        else document.getElementById("{{ item.pk }}").checked = true;
-    }
-    
+    <script>
     function check_all() {
-        var checkboxes = document.getElementsByName("item")
+        var checkboxes = document.getElementsByName("item");
         for(var i = 0; i < checkboxes.length; i++) {
             checkboxes[i].checked = true;
         }
     }
     
     function uncheck_all() {
-        var checkboxes = document.getElementsByName("item")
+        var checkboxes = document.getElementsByName("item");
         for(var i = 0; i < checkboxes.length; i++) {
             checkboxes[i].checked = false;
         }
